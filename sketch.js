@@ -55,15 +55,16 @@ function setup() {
 }
 
 function draw() {
-
+       
   if(gameState == 1){
-
-        backgrd.addImage(bg4);
-        getbackground();
-
+        if(getbackground()){
+                getbackground();
+        }
         restart.visible = false;
+        boy.visible = true;
+        mother.visible = true;
 
-        score = (getFrameRate()%1000) + score;
+        score = Math.round(getFrameRate()%10000) + score;
         
         if(keyDown("space")) {
                 boy.velocityY=-7  
@@ -80,7 +81,6 @@ function draw() {
   }
  
   if(gameState == 0){
-        backgrd.visible = false;
         background("blue");
         restart.visible = true;
         boy.visible = false;
@@ -99,6 +99,8 @@ function draw() {
   boy.collide(invisibleground);
   
   drawSprites();
+  textSize(30);
+  fill("red");
   text("Score : "+score,100, 100);
 
 }
@@ -153,6 +155,7 @@ function spawnfurniture(){
 }
 
 function getbackground(){
+        backgrd.addImage(bg4);
         if(frameCount % 250 ===0 ){
                   var rand = Math.round(random(1,5));
                 
